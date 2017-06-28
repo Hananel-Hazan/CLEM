@@ -18,7 +18,7 @@ In addition to source files, the project contains setup files for installing an 
 
 ## Download
 <p>Want to try for your self?</p>
-<p>The program is fully <a href="https://en.wikipedia.org/wiki/Portable_application"portable</a>, meaning you just need to download this <a href="https://github.com/Hananel-Hazan/CLEM/blob/master/Binaries/CLEM.zip">ZIP</a>, extract its files to empty directory and run it.</p>
+<p>The program is fully <a href="https://en.wikipedia.org/wiki/Portable_application">portable</a>, meaning you just need to download this <a href="https://github.com/Hananel-Hazan/CLEM/blob/master/Binaries/CLEM.zip">ZIP</a>, extract its files to empty directory and run it.</p>
 <p><b>Note:</b>To run CLEM you need the data acquisition board (UEI PD2-MF-64-3M/12L) and <a href="https://www.microsoft.com/en-us/download/details.aspx?id=40784"> Visual C++ Redistributable Packages for Visual Studio 2013</a></p>
 
 
