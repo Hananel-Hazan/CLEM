@@ -771,7 +771,7 @@ int CoreFunction::Init_DAQ(){
 		if (s.compare(corefunc_global_var.BoardModelString) != 0)
 		{
 			// Throw error: card does not match
-			std::string str = "ERROR: The DAQ card in the computer doesn’t match to the one that state in the configuration file!";
+			std::string str = "ERROR: The DAQ card in the computer doesnâ€™t match to the one that state in the configuration file!";
 			char *msg = &str[0u];
 			WriteMessage(msg, FALSE);
 			return -2;
@@ -2158,44 +2158,55 @@ int CoreFunction::Run_DLL(char* args_c){
 	int argc = 0;
 	char **argv;
 
-	size_t pos = 0;
-	std::string token, args(args_c);
-	char delimiter_1 = ',', delimiter_2 = '\t', delimiter_3 = ' ';
+	int		arg_str_length, i, n, p, letterfound = 0;
 
-	for (int i = 0; i < args.size(); i++)
-		if (args[i] == delimiter_1 ||
-			args[i] == delimiter_2 ||
-			args[i] == delimiter_3) argc++;
+	arg_str_length = (int) strlen(args_c);
+								 
+															   
 
-	if (argc == 0 && args.size()>0){
-		argc = 1;
-		argv = new char*[argc];
-		argv[0] = new char[args.size()];
-		for (size_t i = 0; i < args.size(); i++)
-			argv[0][i] = args[i];
-	}
-	else if (argc > 0){
-		argv = new char*[argc];
-		UINT64 t = 0;
-		while (True_forever) {
-			pos = args.find(delimiter_1);
-			if (pos == std::string::npos)
-				pos = args.find(delimiter_2);
-			if (pos == std::string::npos)
-				pos = args.find(delimiter_3);
-			if (pos == std::string::npos) break;
-			token = args.substr(0, pos);
-			argv[t] = new char[token.size()];
-
-			for (size_t i = 0; i < token.size(); i++)
-				argv[t][i] = args[i];
-
-			t++;
-			args.erase(0, pos + 1);
+	// get number of arguments;
+	for (i = 0; i < arg_str_length ; ++i)
+	{
+		if (isspace ((unsigned char) args_c[i]))
+			letterfound = 0;
+		else
+		{
+			if (letterfound == 0)
+				argc++;
+			letterfound = 1;
 		}
 	}
+
+	i = 0;
+	if (argc == 0)	// a precaution just in case a plugin function attempts to read a non existant string
+	{
+		argv = new char*[1];
+										  
+		argv[0] = args_c;
+	}
 	else
-		argv = new char*[0];
+	{
+		argv = new char*[argc];
+		for (n = 0; n < argc; ++n)
+		{
+			while (isspace((unsigned char)args_c[i]))
+				i++;
+			p = i;
+			while (!isspace((unsigned char)args_c[p]))
+				p++;
+			argv[n] = new char[p - i + 1];
+			strncpy_s(argv[n], p - i + 1, args_c + i, p - i);
+									
+
+											
+			argv[n][p - i] = 0;
+			i = p;
+	   
+						  
+		}
+	}
+	 
+					  
 
 	char tout[MAXTEXTMESSAGELEN];
 	std::uninitialized_fill(tout, tout + MAXTEXTMESSAGELEN, '\0');
@@ -2203,11 +2214,11 @@ int CoreFunction::Run_DLL(char* args_c){
 	if (__ClientIOfun_DLL_Engage)
 		__ClientIOfun_DLL_Engage(argc, argv, tout);
 
-	if (argc > 0)
-		for (size_t i = 0; i < argc; i++)
-			delete[] argv[i];
-	else
-		delete[] argv;
+			  
+	for (n = 0; n < argc; ++n)
+		delete[] argv[n];
+	 
+	delete[] argv;
 
 	if (tout[0] != '\0'){
 		WriteMessage(tout, FALSE);
@@ -2232,8 +2243,9 @@ int CoreFunction::Run_DLL(char* args_c){
 			UINT64 current_timeStamp = corefunc_global_var.Time_Stamp_Counter;
 			
 			// Run RealTime_CL!
-			// Note: If you want to Debug the Real time DLL put the breakpoint in the next line!			
+																						  
 			if (__ClientIOfun_RealTime_CL)
+				// Note: If you want to Debug the Real time DLL put the breakpoint in the next line!			
 				__ClientIOfun_RealTime_CL(Local_Analog_Data_Out, Local_Analog_User_Data, &Local_Digital_Data_Out, pout);
 
 			Input_Ready_To_Process = FALSE;
@@ -2365,15 +2377,18 @@ int CoreFunction::Run_DLL(char* args_c){
 			std::uninitialized_fill(pout, pout + MAXTEXTMESSAGELEN, '\0');
 			
 			// Run SlowPeriodic_CL!
-			// Note: If you want to Debug the Slow PeriodicDLL put the breakpoint in the next line!			
+																							 
 
 			if (__ClientIOfun_SlowPeriodic_CL)
+				// Note: If you want to Debug the Slow PeriodicDLL put the breakpoint in the next line!			
 				__ClientIOfun_SlowPeriodic_CL(Local_Analog_Data_Out, Local_Analog_User_Data, &Digital_Data_Out, pout);
 
 			if (pout[0] != '\0'){
 				WriteMessage(pout, FALSE);
 			}
 
+		if (!loop_DLL_On_Demond)
+				break;								   
 		}
 
 	}
