@@ -3,6 +3,10 @@
 
 <img src="https://github.com/Hananel-Hazan/CLEM/blob/master/Screenshots/CLEM%20GUI%20a.png" alt="CLEM"  width="403" height="232"> <img src="https://github.com/Hananel-Hazan/CLEM/blob/master/Screenshots/CLEM%20GUI%20b.png" alt="CLEM"  width="403" height="232">
 
+<p align="middle">
+<img src="https://github.com/Hananel-Hazan/CLEM/blob/master/Screenshots/CLEM%20-%20Demonstration CLEM.gif" alt="CLEM Closed Loop Performance" width="400" height="300">
+</p>
+
 <p>There is growing need for multichannel electrophysiological systems that record from and interact with neuronal systems in near real-time. Ideally, such systems would be inexpensive, reliable, user friendly, easy to set-up, open and expandable, and possess long life cycles in face of rapidly changing computing environments. Finally, they should provide powerful yet reasonably easy to implement facilities for developing closed-loop protocols for interacting with neuronal systems. </p>
 <p>Here we provide full sources for a solution we created referred to as Closed Loop Experiments Manager (CLEM). CLEM is a soft real-time, Microsoft Windows desktop application based on an inexpensive, general-purpose 64-channel data acquisition board (UEI PD2-MF-64-3M/12L) and a generic personal computer. CLEM provides a fully functional, user-friendly graphical interface, possesses facilities for recording, presenting and logging electrophysiological data from up to 64 analog channels, and facilities for interacting with external devices, such as stimulators, through digital and analog interfaces. Importantly, it includes facilities for loading “plugins” containing functions for running closed-loop protocols. Such plugins can be written in any programming language that can generate dynamic link libraries (DLLs) as long as they conform with CLEMs requirements.</p>
 <p>CLEM is a 64bit Windows desktop application written in C and C++ using Visual Studio 2013 and is based on the generic Win32 API and GDI. It thus does not require external code libraries, beyond those provided by the boards’ vendor.  The project generates a single executable file, which does not depend on registry entries but does require a configuration file (provided).
@@ -24,9 +28,9 @@ As a demonstration of closed-loop procedure execution, we wrote a DLL which carr
 <p>
 Motifs were then defined as sequences of action potentials recorded from 5 different active electrodes within inter-spike intervals that did not exceed 10ms. The task assigned to the real-time closed loop procedure was to 1) scan the spike history repository in search of the predefined motif; 2) upon identifying one, set a digital out line to high; 3) set the digital line back to low after 5 msec, and 4) impose a refractory period such that no triggers will be issued within 1 sec of the prior signaled event, even if motif recurrences are detected. The task assigned to the slow periodic closed loop procedure was to 1) scan the spike history repository and count all spikes recorded within the last one minute; 2) scale the value and 3) send the value to the first user data graph. All code was written in C, compiled and tested by loading (and unloading) the DLL into CLEM without leaving CLEM. 
 </p>
-
+<p align="middle">
 <img src="https://github.com/Hananel-Hazan/CLEM/blob/master/Screenshots/CLEM%20-%20Demonstration of closed-loop execution.jpg" alt="CLEM Closed Loop Performance" width="400" height="300">
-
+</p>
 <p>
 For more details on the materials and method of the experiment please refer to the paper: <B>(UNDER REVIEW)</B>
 </p>
