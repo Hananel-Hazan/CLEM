@@ -2,7 +2,7 @@
 ### A Simple and Inexpensive System for Multichannel, Closed Loop Electrophysiological Experimentation
 
 <p align="middle">
-<img src="https://github.com/Hananel-Hazan/CLEM/blob/master/Screenshots/CLEM%20-%20Demonstration CLEM.gif" alt="CLEM Closed Loop Performance" width="600" height="400">
+<img src="https://github.com/Hananel-Hazan/CLEM/blob/master/Screenshots/CLEM%20-%20Demonstration CLEM.gif" alt="CLEM Closed Loop Performance" width="700" height="400">
 </p>
 
 <p>There is growing need for multichannel electrophysiological systems that record from and interact with neuronal systems in near real-time. Ideally, such systems would be inexpensive, reliable, user friendly, easy to set-up, open and expandable, and possess long life cycles in face of rapidly changing computing environments. Finally, they should provide powerful yet reasonably easy to implement facilities for developing closed-loop protocols for interacting with neuronal systems. </p>
